@@ -4,125 +4,239 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sistema de Registros</title>
+<title>Declaração</title>
 
 <style>
 
 :root{
-color-scheme: light;
 --azul:#0d1b3d;
---azul2:#1b2f6b;
 --amarelo:#f4c542;
 }
 
 body{
 margin:0;
-font-family:Arial, sans-serif;
-background:linear-gradient(180deg,var(--azul),#050b20);
-color:white;
+font-family:Arial;
+background: linear-gradient(180deg,#dcdcdc,#cfcfcf);
+color:#0d1b3d;
 text-align:center;
+overflow-x: hidden;
 }
 
-header{
-background:var(--azul2);
-padding:20px;
-font-size:22px;
-font-weight:bold;
-}
+/* Container */
 
-nav{
+.container{
 display:flex;
-justify-content:center;
-gap:20px;
-background:#0a1430;
-padding:15px;
-}
-
-nav button{
-background:var(--amarelo);
-border:none;
-padding:10px 18px;
-border-radius:8px;
-font-weight:bold;
-cursor:pointer;
-transition:0.2s;
-}
-
-nav button:hover{
-transform:scale(1.05);
-}
-
-#conteudo{
-margin-top:40px;
-padding:20px;
-}
-
-.card{
-background:#101b40;
-border-radius:12px;
-padding:30px;
-max-width:600px;
-margin:auto;
-box-shadow:0 0 20px rgba(0,0,0,0.4);
-}
-
-h2{
-color:var(--amarelo);
-}
-
-.playButton{
-margin-top:20px;
-background:var(--amarelo);
-border:none;
-padding:12px 25px;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.playButton:hover{
-transform:scale(1.05);
-}
-
-#progressBar{
-width:100%;
-height:10px;
-background:#333;
-border-radius:10px;
-margin-bottom:20px;
-overflow:hidden;
-}
-
-#progress{
-height:100%;
-width:0%;
-background:#00ffae;
-transition:0.4s;
-}
-
-@media (max-width:600px){
-
-header{
-font-size:18px;
-padding:15px;
-}
-
-nav{
 flex-direction:column;
-gap:10px;
-}
-
-nav button{
-width:80%;
-margin:auto;
-font-size:16px;
-}
-
-.card{
-margin:20px;
+gap:40px;
 padding:20px;
 }
 
+/* Card */
+
+.card{
+max-width:600px;
+width:90%;
+padding:20px;
+border:3px solid black;
+border-radius:12px;
+background:white;
+box-shadow:6px 6px 0px black;
+
+opacity:0;
+transform:translateY(40px);
+transition:0.8s;
+transform:rotate(-1deg);
+}
+
+/* Posições */
+
+.left{
+margin-left:0;
+margin-right:auto;
+transform:translateX(-60px);
+}
+
+.right{
+margin-left:auto;
+margin-right:0;
+transform:translateX(60px);
+}
+
+/* Quando aparece */
+
+.card.show{
+opacity:1;
+transform:translateX(0);
+}
+
+/* Texto */
+
+.texto{
+text-align: center;
+white-space:pre-line;
+line-height:1.6;
+color:#0d1b3d;
+font-weight:500;
+}
+
+/* Imagem */
+
+.imgBox{
+margin-top:20px;
+display:none;
+opacity:0;
+transition:1s;
+}
+
+.imgBox.show{
+display:block;
+opacity:1;
+}
+
+.imgBox img{
+width:100%;
+border-radius:8px;
+border:2px solid black;
+}
+
+/* Links Spotify */
+
+a{
+text-align: center;
+color:#eab308;
+display:block;
+margin-top:10px;
+text-decoration:none;
+font-weight:bold;
+}
+
+/* Música Aparece */
+
+.musica{
+display:none;
+opacity:0;
+transition:0.5s;
+}
+
+.musica.show{
+display:block;
+opacity:1;
+}
+
+/* Dark mode forçado */
+:root{
+    color-scheme: light;
+}
+
+/* Forçando visual */
+html,body{
+    background:#e4e4e4 !important;
+    color:#0d1b3d !important;
+}
+
+
+/* TELA INICIAL */
+
+#envelopeTela{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#d6d6d6;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+/* ENVELOPE */
+
+.envelope{
+width:220px;
+height:140px;
+position:relative;
+cursor:pointer;
+transition:0.3s;
+perspective: 800px;
+}
+
+.envelope:hover{
+transform:scale(1.05);
+}
+
+/* CORPO */
+
+.corpo{
+width:100%;
+height:100%;
+background:#f4c542;
+border:3px solid black;
+border-radius:6px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-weight:bold;
+position: relative;
+z-index: 2;
+}
+
+/* TAMPA */
+
+.flap{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:70px;
+background:#eab308;
+clip-path:polygon(0 0, 100% 0, 50% 100%);
+transform-origin:top;
+transition:0.6s ease;
+z-index: 3;
+}
+
+/* TEXTO */
+
+.destino{
+text-align:left;
+color:#0d1b3d;
+}
+
+.abrirTexto{
+margin-top:15px;
+color:#0d1b3d;
+font-size:14px;
+}
+
+/* ANIMAÇÃO AO ABRIR */
+
+.envelope.aberto .flap{
+transform:rotateX(-180deg);
+}
+
+/* CARTA INTERNA */
+
+.carta{
+position:absolute;
+bottom:0;
+left:50%;
+transform:translateX(-50%) translateY(6px);
+width:180px;
+height:110px;
+background:white;
+border:2px solid black;
+border-radius:6px;
+z-index:0;
+transition:0.6s ease;
+}
+
+/* QUANDO ABRE */
+
+.envelope.aberto .carta{
+transform:translateX(-50%) translateY(-40px);
 }
 
 </style>
@@ -130,258 +244,252 @@ padding:20px;
 
 <body>
 
-<header>
-Sistema de Registros – Projeto de Banco de Dados
-</header>
+<div id="envelopeTela">
 
-<nav>
-<button onclick="mostrarAnna()">Anna</button>
-<button onclick="mostrarKanna()">Kanna</button>
-<button onclick="mostrarKika()">Kika</button>
-</nav>
+<div class="envelope" onclick="abrirCarta()">
 
-<div id="conteudo">
+    <div class="carta"></div>
 
+<div class="flap"></div>
+
+<div class="corpo">
+<p></p>
+<p class="destino">De: Anna<br>Para: Kika</p>
+</div>
+
+</div>
+
+<p class="abrirTexto">Toque para abrir</p>
+
+</div>
+
+<div class="container">
+
+<!-- Cartinha -->
 <div class="card">
-<h2>Bem-vinda ao sistema</h2>
-
-<p>
-Este projeto simula um banco de dados simples para consulta de registros.
-Selecione uma das opções acima para visualizar as informações armazenadas.
-</p>
-
+<p class="texto"></p>
+<div class="imgBox" id="gifIntro">
+<img src="https://media1.tenor.com/m/-I-V6VQ7NqwAAAAd/cat.gif">
+</div>
 </div>
 
-</div>
-
-<div id="gameArea" style="display:none; padding:20px;">
-
+<!-- Colagem 1 -->
 <div class="card">
-
-<div id="progressBar">
-<div id="progress"></div>
+<p class="texto"></p>
+<a href="https://open.spotify.com/intl-pt/track/3AX4HIRJY6GT6tgMkO5987" class="musica">🎧 Hate to see your heart break</a>
+<div class="imgBox" id="gif1">
+<img src="https://media1.tenor.com/m/wyntmn1kZY0AAAAd/cat-music.gif">
+</div>
 </div>
 
-<h2 id="perguntaGame"></h2>
-
-<div id="botoesGame">
-
-<button onclick="responder(true)">SIM</button>
-<button id="botaoNao" onclick="responder(false)">NÃO</button>
-
+<!-- Colagem 2 -->
+<div class="card">
+<p class="texto"></p>
+<a href="https://open.spotify.com/intl-pt/track/3sP3c86WFjOzHHnbhhZcLA" class="musica">🎧 Give your heart a break</a>
+<div class="imgBox" id="gif2">
+<img src="https://media1.tenor.com/m/GOabrbLMl4AAAAAd/plink-cat-plink.gif">
+</div>
 </div>
 
-<p id="resultadoGame"></p>
+<!-- Colagem 3 -->
+<div class="card">
+<p class="texto"></p>
+<a href="https://open.spotify.com/intl-pt/track/4ZsyrBZX0YMopDJjGpva5j" class="musica">🎧 Flor de Tangerina</a>
+<div class="imgBox" id="gif3">
+<img src="https://media1.tenor.com/m/146pwtq1QkoAAAAd/amor-cat.gif">
+</div>
+</div>
 
+<!-- Colagem 4 -->
+<div class="card">
+<p class="texto"></p>
+<a href="https://open.spotify.com/intl-pt/track/0dHTMMFAzlk164gZ7YB1rG" class="musica">🎧 Hoje à noite não tem luar</a>
+<div class="imgBox" id="gif4">
+<img src="https://media1.tenor.com/m/pAJwQ1fYUCEAAAAd/falling-stars-cute.gif">
+</div>
+</div>
+
+<!-- Colagem 5 -->
+<div class="card">
+<p class="texto"></p>
+<a href="https://open.spotify.com/intl-pt/track/2iUxWUv5TovjBmayOcWohB" class="musica">🎧 Equalize</a>
+<div class="imgBox" id="gif5">
+<img src="https://media1.tenor.com/m/yvA_d2Q-eBkAAAAd/dddd.gif">
+</div>
+</div>
+
+<!-- Colagem 6 -->
+<div class="card">
+<p class="texto"></p>
+<a href="https://open.spotify.com/intl-pt/track/0NFVg74sSsdU1gNc9xfpIO" class="musica">🎧 Aonde quer que eu vá</a>
+<div class="imgBox" id="gif6">
+<img src="https://media1.tenor.com/m/cCP1gt279JEAAAAC/kitten-hug.gif">
+</div>
+</div>
+
+<!-- Colagem 7 -->
+<div class="card">
+<p class="texto"></p>
+<a href="https://open.spotify.com/intl-pt/track/0228dbbfbyvjsjKus9KAS5" class="musica">🎧 Por você</a>
+<div class="imgBox" id="gif7">
+<img src="https://media.discordapp.net/attachments/1410421148839051264/1486129967359332502/image0.gif?ex=69c50aa3&is=69c3b923&hm=96750d47ab741ce68eaa0eca9871df74dd19d4829361634671bdc601983c5595&=">
+</div>
+</div>
+
+<!-- Colagem 8 -->
+<div class="card">
+<p class="texto"></p>
+<a href="https://open.spotify.com/intl-pt/track/2O4UvB3S7PFKIy0UPyVavJ" class="musica">🎧 Como eu quero</a>
+<div class="imgBox" id="gif8">
+<img src="https://media.discordapp.net/attachments/1410421148839051264/1486129685396983951/730d75ed729397068c7a89fa7476e305.gif?ex=69c50a5f&is=69c3b8df&hm=3bc1210597bb85373b4139b2e44c6cdb4eeea0de1d539904d66ced50777eb31c&=">
+</div>
+</div>
+
+<!-- Final -->
+<div class="card">
+<p class="texto"></p>
+<a href="https://open.spotify.com/intl-pt/track/3idU6lZVKD6hvGjnpSHde8" class="musica">🎧 Porque eu te amo</a>
+<a href="https://open.spotify.com/intl-pt/track/2o2xhyri4aJUtgMGkf5P0J" class="musica">🎧 Lisboa – Anavitória</a>
+<div class="imgBox" id="gifFinal">
+<img src="https://media1.tenor.com/m/3yinSke0rykAAAAC/love-you.gif">
+</div>
 </div>
 
 </div>
 
 <script>
 
-function mostrarAnna(){
+const colagens = [
 
-document.getElementById("conteudo").innerHTML=`
+`Querida Kika,
+Dessa vez eu quis fazer um aprontamento totalmente diferente, porém que mantivesse a nossa essência. 
+Então quis juntar algumas coisas que gostamos e aqui vamos nós para mais um aprontamento em linguagem de amor e programação e uma pitadinha de nostalgia
+Pronta?! Vamos lá.`,
 
-<div class="card">
+`A primeira música que lhe mandei em um momento onde tudo ainda era mato, mas ao mesmo tempo você já era extremamente especial pra mim e estava numa fase ruim, e obviamente já me vinha na cabeça esse belo hit de uma das nossas bandas preferidas. 
+Hate to see your heart break descreve perfeitamente meu sentimento toda vez que te via pra baixo, me dá uma coisa de querer fazer algo pra te tirar um sorriso do rosto imediatamente, apesar da música ser meio bad vibes, mas é nosso jeitinho kkkk.`,
 
-<h2>Registro encontrado</h2>
+`Quando compartilhamos nossos sentimentos pela primeira vez, lá no finalzinho do ano passado, você me disse que tinha se fechado para relacionamentos e só vinha na minha cabeça uma música de uma diva que gostamos. 
+Naquele momento o que eu mais queria era te mostrar que ainda era possível acreditar no amor, e que nem todas as pessoas eram como as outras que não souberam te dar um devido valor (otários u.u) e logo me vinha na cabeça Give your heart a break. Aquele verso: 
+'Cause you been hurt before
+I can see it in your eyes
+You try to smile it away
+Some things you can't disguise
+Don't wanna break your heart
+Baby, I can erase the ache, the ache
+So let me give your heart a break.
+`,
 
-<p><b>Nome:</b> Anna</p>
-<p><b>Função:</b> Desenvolvedora Loirinha Aprontona</p>
-<p><b>Especialidade:</b> Criar surpresas inesperadas</p>
-<p><b>Status:</b> Aprontando algo pra fazer meu benzin sorrir, ficar bobinha e ficar com os belos olhos castanhos brilhando.</p>
+`Um belo dia em uma live de God of War, você me surpreendeu virando membro em todas as suas contas, uma coisa bem fofa da sua parte, mas algo me chamou à atenção, pois em uma dessas contas estava o nome de sua música preferida do Alceu. 
+Acho que naquele momento ninguém reparou ou focou nessa curiosidade, mas eu marquei aquilo na minha cabeça, porque sabia o quão especial essa canção, uma bela canção (diga-se de passagem), era pra você, logo se tornou importante para mim também!`,
 
-</div>
+`Essa música aqui se encaixa na mesma pegada da anterior, um belo dia em outra live aleatória chegou o papo dessa canção linda do Legião Urbana, banda que amamos e é da minha bela cidade. 
+Eu nunca esqueci o quanto essa música é especial pra você justamente por conta do seu pai. 
+Essa música é extremamente linda e ela me lembra você, talvez porque a música seja linda tal qual você, acho que é isso hein hehe.`,
 
-`;
+`No primeiro dia que começamos nossas brincadeiras bobas e gostosas teve uma música que embalou esse rolê, e sempre que escuto logo vem você na minha cabeça que é Equalize da Pitty. 
+Uma música incrível, que hoje tem um significado mais do que especial porque além dela remeter a esse momento, não sei se você já reparou, mas ela nos descreve um pouco... “até parece que você já tinha, o meu manual de instruções”, esse verso acho que casa muito bem com a gente hein, não sei se você concorda kkkk.`,
 
-}
+`Essa love song aqui sempre foi a minha favorita do Paralamas e quando fiz a playlist pra você sabia que ela precisava estar lá por um simples motivo: você não sai da minha cabeça e posso estar em qualquer lugar que vou me lembrar de você, recentemente até o João ficou me zoando porque lembrei de você porque tinha uma aranha gigante no jogo kkkkk. 
+É um pouco bizarro isso, mas fazer o que, várias coisas do dia a dia me lembram você e aonde eu vou levo você. `,
 
-function mostrarKanna(){
+`Já esse belo hit do Barão Vermelho vem pra te mostrar o quão incrível, linda, com a alma brilhante, um humor cativante, um sorriso encantador e belo par de olhos castanhos, como que a pessoa não se interessa e não faz tudo POR VOCÊ? 
+Olha essa MULHER MEU DEUS, COISA MAI LINDA!!`,
 
-document.getElementById("conteudo").innerHTML=`
+`Mais uma música que usei na playlist que fiz para você, mas que deixa totalmente explicito meus sentimentos kkkk, aí como essa Anna apronta, nossinhora. 
+E não tem como, essa música é um hit atemporal e que demostra o que eu quero, o que será?! Talvez uma bela morena de Recife, ou talvez uma moça de belos olhos castanhos, ou talvez uma tal de Kika Simplicio que me mandou um gatinho LINDO e disse para eu sempre o manter perto e lembrar dela, acho que essa é a resposta correta!`,
 
-<div class="card">
-
-<h2>Alerta de casal fofíssimo e aprontão!</h2>
-
-<p>Que química maravilhosa esse shipp tem.</p>
-
-<button class="playButton" onclick="abrirJogo()">Clica aqui para conferir</button>
-
-</div>
-
-`;
-
-}
-
-function mostrarKika(){
-
-if(navigator.vibrate){
-navigator.vibrate(120);
-}
-
-document.getElementById("conteudo").innerHTML=`
-
-<div class="card">
-
-<h2>Registro encontrado</h2>
-
-<p><b>Nome:</b> Kika</p>
-<p><b>Status:</b> Caindo em mais um aprontamento da Anna.</p>
-<p><b>Nível de fofura:</b> Olhos EXTREMAMENTE LINDOS, um sorriso RADIANTE e um sotaque ENCANTADOR.</p>
-
-<p style="margin-top:20px;">
-⚠️ Sistema alerta: Essa usuária pode quebrar jogos (espero que esse não).
-</p>
-
-</div>
-
-`;
-
-}
-
-function abrirJogo(){
-
-document.getElementById("conteudo").style.display="none";
-document.getElementById("gameArea").style.display="block";
-
-mostrarPergunta();
-
-}
-
-const perguntas=[
-
-{
-texto:"Você acha que a Anna apronta muito? Seja sincera.",
-resposta:false
-},
-
-{
-texto:"Quando você vê o link de qualquer coisa que eu te mando, já imagina que é um possível aprontamento?",
-resposta:false
-},
-
-{
-texto:"Quer dizer que com esses aprontamentos uma bela morena de olhos castanhos fica toda boba e com um sorrisão no rosto?!",
-resposta:true
-},
-
-{
-texto:"Será que você igual a mim quando penso em você? Eu fico mais ou menos assim: penso em você e fico igual uma tonta rindo pelos cantos, ainda mais quando escuto uma música que me lembra você. Ou quando apronto uma supresa e fico toda besta pensando que tu vai gostar.",
-resposta:true
-},
-
-{
-texto:"Quer dizer que uma loirinha está conquistando o seu belo coração recifense, é verdade isso?!",
-resposta:true
-}
+`Para finalizar esse belo aprontamento nada melhor do que com duas músicas que dizem muito, quero que você repare na letra delas hein, porfas. 
+E lhe dizer que eu não imaginava que iria me apaixonar mais depois de tanta coisa ruim que rolou com relacionamentos passados, e não imaginava que isso aconteceria com uma pessoa com quem eu tenho uma grande afinidade e conexão. 
+Então, Kika Simplicio, eu agradeço todos os dias por Deus ter te colocado na minha vida, você ilumina meus dias, me deixa feliz mesmo com a distância, que inclusive, isso não é nada perto do que sinto por você, obrigada por tornar minha vida melhor, por me apoiar em tudo, principalmente nos aprontamentos hehe, você não tem noção do quanto você me faz bem e feliz todos os dias e por isso eu sempre quero aprontar algo pra fazer você sorrir (um sorriso LINDO desses tem que ser mostrado com frequência, né não?!) e se sentir amada por uma loirinha brasiliense, aliás, eu amo quando recebo apelidinhos, pode ser os regionais kkk, até porque começamos com eles, ex loirinha brasiliense, loirinha brasiliense, meu bem, baby, dentre muitos outros que virão, porque a gente apronta kkkkk. 
+Obrigada por tudo mi amore, eu amo você ♥️`
 
 ];
 
-let atual=0;
-let pontos=0;
+let index = 0;
+const velocidade = 30;
 
-function mostrarPergunta(){
+function rodarAnimacao(){
 
-const p=perguntas[atual];
+if(index >= colagens.length) return;
 
-document.getElementById("perguntaGame").innerText=p.texto;
+const cards = document.querySelectorAll(".card");
+const textos = document.querySelectorAll(".texto");
+const gifs = document.querySelectorAll(".imgBox");
+const musica = document.querySelectorAll(".musica");
 
-atualizarBarra();
+//alternar da esquerda para a direita
+const rotacao = (Math.random() * 2 - 1) + "deg";
 
-if(atual === perguntas.length-1){
-
-const nao=document.getElementById("botaoNao");
-
-nao.onmouseover=fugirBotao;
-nao.ontouchstart=fugirBotao;
-
+if(index % 2 === 0){
+cards[index].classList.add("left");
+cards[index].style.transform += ` rotate(${rotacao})`;
 }else{
-
-const nao=document.getElementById("botaoNao");
-
-nao.onmouseover=null;
-nao.ontouchstart=null;
-
+cards[index].classList.add("right");
+cards[index].style.transform += ` rotate(${rotacao})`;
 }
 
+//ativando animação
+setTimeout(()=>{
+    cards[index].classList.add("show");
+},100);
+
+let i = 0;
+
+function digitar(){
+
+if(i < colagens[index].length){
+textos[index].textContent += colagens[index].charAt(i);
+i++;
+setTimeout(digitar, velocidade);
 }
+else{
 
-function responder(resp){
 
-if(resp===perguntas[atual].resposta){
-pontos++;
-}
+// MOSTRA GIF
+gifs[index].classList.add("show");
 
-atual++;
+// ESPERA → MOSTRA MÚSICA → SÓ DEPOIS AVANÇA
+setTimeout(()=>{
 
-if(atual<perguntas.length){
+const cardAtual = cards[index];
 
-mostrarPergunta();
+const musicasDoCard = cardAtual.querySelectorAll(".musica");
 
-}else{
+musicasDoCard.forEach(m => {
+m.classList.add("show");
+});
 
-finalizar();
+// AGORA SIM AVANÇA
+index++;
+rodarAnimacao();
 
-}
+},1500);
 
-}
-
-function atualizarBarra(){
-
-const progresso=(atual/perguntas.length)*100;
-
-document.getElementById("progress").style.width=progresso+"%";
-
-}
-
-function fugirBotao(){
-
-const botao=document.getElementById("botaoNao");
-
-const largura=window.innerWidth-100;
-const altura=window.innerHeight-100;
-
-const x=Math.random()*largura;
-const y=Math.random()*altura;
-
-botao.style.position="absolute";
-botao.style.left=x+"px";
-botao.style.top=y+"px";
+return; // MUITO IMPORTANTE
 
 }
-
-function finalizar(){
-
-document.getElementById("botoesGame").style.display="none";
-
-document.getElementById("perguntaGame").innerText="Resultado final";
-
-document.getElementById("resultadoGame").innerHTML=`
-Você acertou ${pontos} de ${perguntas.length} perguntas 💛<br><br>
-
-Esse jogo foi só mais um aprontamento da Anna, espero que tenha gostado e até o próximo.<br><br>
-
-<button class="playButton" onclick="reiniciarJogo()">Quer tentar de novo, dona dos olhos mais lindos?</button>
-`;
+}
+digitar();
 
 }
+rodarAnimacao();
 
-function reiniciarJogo(){
+function abrirCarta(){
 
-atual=0;
-pontos=0;
+const env = document.querySelector(".envelope");
 
-document.getElementById("botoesGame").style.display="block";
-document.getElementById("resultadoGame").innerHTML="";
-document.getElementById("progress").style.width="0%";
+env.classList.add("aberto");
 
-const nao=document.getElementById("botaoNao");
-nao.style.position="static";
+// espera a carta subir
+setTimeout(()=>{
 
-mostrarPergunta();
+// espera mais um pouquinho pra abrir tudo
+setTimeout(()=>{
+document.getElementById("envelopeTela").style.display="none";
+},600);
+
+},600);
 
 }
 
