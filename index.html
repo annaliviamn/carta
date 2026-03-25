@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sistema de Registros</title>
+
+<style>
+
+:root{
+color-scheme: light;
+--azul:#0d1b3d;
+--azul2:#1b2f6b;
+--amarelo:#f4c542;
+}
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(180deg,var(--azul),#050b20);
+color:white;
+text-align:center;
+}
+
+header{
+background:var(--azul2);
+padding:20px;
+font-size:22px;
+font-weight:bold;
+}
+
+nav{
+display:flex;
+justify-content:center;
+gap:20px;
+background:#0a1430;
+padding:15px;
+}
+
+nav button{
+background:var(--amarelo);
+border:none;
+padding:10px 18px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+transition:0.2s;
+}
+
+nav button:hover{
+transform:scale(1.05);
+}
+
+#conteudo{
+margin-top:40px;
+padding:20px;
+}
+
+.card{
+background:#101b40;
+border-radius:12px;
+padding:30px;
+max-width:600px;
+margin:auto;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+h2{
+color:var(--amarelo);
+}
+
+.playButton{
+margin-top:20px;
+background:var(--amarelo);
+border:none;
+padding:12px 25px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.playButton:hover{
+transform:scale(1.05);
+}
+
+#progressBar{
+width:100%;
+height:10px;
+background:#333;
+border-radius:10px;
+margin-bottom:20px;
+overflow:hidden;
+}
+
+#progress{
+height:100%;
+width:0%;
+background:#00ffae;
+transition:0.4s;
+}
+
+@media (max-width:600px){
+
+header{
+font-size:18px;
+padding:15px;
+}
+
+nav{
+flex-direction:column;
+gap:10px;
+}
+
+nav button{
+width:80%;
+margin:auto;
+font-size:16px;
+}
+
+.card{
+margin:20px;
+padding:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+Sistema de Registros – Projeto de Banco de Dados
+</header>
+
+<nav>
+<button onclick="mostrarAnna()">Anna</button>
+<button onclick="mostrarKanna()">Kanna</button>
+<button onclick="mostrarKika()">Kika</button>
+</nav>
+
+<div id="conteudo">
+
+<div class="card">
+<h2>Bem-vinda ao sistema</h2>
+
+<p>
+Este projeto simula um banco de dados simples para consulta de registros.
+Selecione uma das opções acima para visualizar as informações armazenadas.
+</p>
+
+</div>
+
+</div>
+
+<div id="gameArea" style="display:none; padding:20px;">
+
+<div class="card">
+
+<div id="progressBar">
+<div id="progress"></div>
+</div>
+
+<h2 id="perguntaGame"></h2>
+
+<div id="botoesGame">
+
+<button onclick="responder(true)">SIM</button>
+<button id="botaoNao" onclick="responder(false)">NÃO</button>
+
+</div>
+
+<p id="resultadoGame"></p>
+
+</div>
+
+</div>
+
+<script>
+
+function mostrarAnna(){
+
+document.getElementById("conteudo").innerHTML=`
+
+<div class="card">
+
+<h2>Registro encontrado</h2>
+
+<p><b>Nome:</b> Anna</p>
+<p><b>Função:</b> Desenvolvedora Loirinha Aprontona</p>
+<p><b>Especialidade:</b> Criar surpresas inesperadas</p>
+<p><b>Status:</b> Aprontando algo pra fazer meu benzin sorrir, ficar bobinha e ficar com os belos olhos castanhos brilhando.</p>
+
+</div>
+
+`;
+
+}
+
+function mostrarKanna(){
+
+document.getElementById("conteudo").innerHTML=`
+
+<div class="card">
+
+<h2>Alerta de casal fofíssimo e aprontão!</h2>
+
+<p>Que química maravilhosa esse shipp tem.</p>
+
+<button class="playButton" onclick="abrirJogo()">Clica aqui para conferir</button>
+
+</div>
+
+`;
+
+}
+
+function mostrarKika(){
+
+if(navigator.vibrate){
+navigator.vibrate(120);
+}
+
+document.getElementById("conteudo").innerHTML=`
+
+<div class="card">
+
+<h2>Registro encontrado</h2>
+
+<p><b>Nome:</b> Kika</p>
+<p><b>Status:</b> Caindo em mais um aprontamento da Anna.</p>
+<p><b>Nível de fofura:</b> Olhos EXTREMAMENTE LINDOS, um sorriso RADIANTE e um sotaque ENCANTADOR.</p>
+
+<p style="margin-top:20px;">
+⚠️ Sistema alerta: Essa usuária pode quebrar jogos (espero que esse não).
+</p>
+
+</div>
+
+`;
+
+}
+
+function abrirJogo(){
+
+document.getElementById("conteudo").style.display="none";
+document.getElementById("gameArea").style.display="block";
+
+mostrarPergunta();
+
+}
+
+const perguntas=[
+
+{
+texto:"Você acha que a Anna apronta muito? Seja sincera.",
+resposta:false
+},
+
+{
+texto:"Quando você vê o link de qualquer coisa que eu te mando, já imagina que é um possível aprontamento?",
+resposta:false
+},
+
+{
+texto:"Quer dizer que com esses aprontamentos uma bela morena de olhos castanhos fica toda boba e com um sorrisão no rosto?!",
+resposta:true
+},
+
+{
+texto:"Será que você igual a mim quando penso em você? Eu fico mais ou menos assim: penso em você e fico igual uma tonta rindo pelos cantos, ainda mais quando escuto uma música que me lembra você. Ou quando apronto uma supresa e fico toda besta pensando que tu vai gostar.",
+resposta:true
+},
+
+{
+texto:"Quer dizer que uma loirinha está conquistando o seu belo coração recifense, é verdade isso?!",
+resposta:true
+}
+
+];
+
+let atual=0;
+let pontos=0;
+
+function mostrarPergunta(){
+
+const p=perguntas[atual];
+
+document.getElementById("perguntaGame").innerText=p.texto;
+
+atualizarBarra();
+
+if(atual === perguntas.length-1){
+
+const nao=document.getElementById("botaoNao");
+
+nao.onmouseover=fugirBotao;
+nao.ontouchstart=fugirBotao;
+
+}else{
+
+const nao=document.getElementById("botaoNao");
+
+nao.onmouseover=null;
+nao.ontouchstart=null;
+
+}
+
+}
+
+function responder(resp){
+
+if(resp===perguntas[atual].resposta){
+pontos++;
+}
+
+atual++;
+
+if(atual<perguntas.length){
+
+mostrarPergunta();
+
+}else{
+
+finalizar();
+
+}
+
+}
+
+function atualizarBarra(){
+
+const progresso=(atual/perguntas.length)*100;
+
+document.getElementById("progress").style.width=progresso+"%";
+
+}
+
+function fugirBotao(){
+
+const botao=document.getElementById("botaoNao");
+
+const largura=window.innerWidth-100;
+const altura=window.innerHeight-100;
+
+const x=Math.random()*largura;
+const y=Math.random()*altura;
+
+botao.style.position="absolute";
+botao.style.left=x+"px";
+botao.style.top=y+"px";
+
+}
+
+function finalizar(){
+
+document.getElementById("botoesGame").style.display="none";
+
+document.getElementById("perguntaGame").innerText="Resultado final";
+
+document.getElementById("resultadoGame").innerHTML=`
+Você acertou ${pontos} de ${perguntas.length} perguntas 💛<br><br>
+
+Esse jogo foi só mais um aprontamento da Anna, espero que tenha gostado e até o próximo.<br><br>
+
+<button class="playButton" onclick="reiniciarJogo()">Quer tentar de novo, dona dos olhos mais lindos?</button>
+`;
+
+}
+
+function reiniciarJogo(){
+
+atual=0;
+pontos=0;
+
+document.getElementById("botoesGame").style.display="block";
+document.getElementById("resultadoGame").innerHTML="";
+document.getElementById("progress").style.width="0%";
+
+const nao=document.getElementById("botaoNao");
+nao.style.position="static";
+
+mostrarPergunta();
+
+}
+
+</script>
+
+</body>
+</html>
