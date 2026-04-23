@@ -16,13 +16,29 @@
 body{
 margin:0;
 font-family:Arial;
-background: linear-gradient(180deg,#dcdcdc,#cfcfcf);
+background: linear-gradient(180deg,#f8e8ee,#e0c3fc);
 color:#0d1b3d;
 text-align:center;
 overflow-x: hidden;
 }
 
-/* Container */
+body::after{
+content:"🐾";
+position:fixed;
+bottom:10px;
+right:15px;
+opacity:0.3;
+}
+
+/* brilho */
+#envelopeTela::before{
+content:"";
+position:absolute;
+width:300px;
+height:300px;
+background:radial-gradient(circle, rgba(255,214,224,0.5), transparent);
+filter:blur(40px);
+}
 
 .container{
 display:flex;
@@ -31,55 +47,34 @@ gap:40px;
 padding:20px;
 }
 
-/* Card */
-
+/* polaroid */
 .card{
 max-width:600px;
 width:90%;
-padding:20px;
-border:3px solid black;
-border-radius:12px;
+padding:15px 15px 30px 15px;
+border:2px solid black;
+border-radius:8px;
 background:white;
 box-shadow:6px 6px 0px black;
 
 opacity:0;
-transform:translateY(40px);
-transition:0.8s;
-transform:rotate(-1deg);
+transform:translateY(40px) rotate(-1deg);
+transition: all 0.8s cubic-bezier(.22,1,.36,1);
 }
 
-/* Posições */
-
-.left{
-margin-left:0;
-margin-right:auto;
-transform:translateX(-60px);
-}
-
-.right{
-margin-left:auto;
-margin-right:0;
-transform:translateX(60px);
-}
-
-/* Quando aparece */
+.left{margin-right:auto; transform:translateX(-60px);}
+.right{margin-left:auto; transform:translateX(60px);}
 
 .card.show{
 opacity:1;
 transform:translateX(0);
 }
 
-/* Texto */
-
 .texto{
-text-align: center;
 white-space:pre-line;
 line-height:1.6;
-color:#0d1b3d;
-font-weight:500;
+font-family:'Courier New', monospace;
 }
-
-/* Imagem */
 
 .imgBox{
 margin-top:20px;
@@ -99,23 +94,14 @@ border-radius:8px;
 border:2px solid black;
 }
 
-/* Links Spotify */
-
-a{
-text-align: center;
-color:#eab308;
-display:block;
-margin-top:10px;
-text-decoration:none;
-font-weight:bold;
-}
-
-/* Música Aparece */
-
 .musica{
 display:none;
 opacity:0;
 transition:0.5s;
+color:#eab308;
+font-weight:bold;
+text-decoration:none;
+margin-top:10px;
 }
 
 .musica.show{
@@ -123,19 +109,7 @@ display:block;
 opacity:1;
 }
 
-/* Dark mode forçado */
-:root{
-    color-scheme: light;
-}
-
-/* Forçando visual */
-html,body{
-    background:#e4e4e4 !important;
-    color:#0d1b3d !important;
-}
-
-
-/* TELA INICIAL */
+/* ENVELOPE */
 
 #envelopeTela{
 position:fixed;
@@ -151,92 +125,74 @@ align-items:center;
 z-index:999;
 }
 
-/* ENVELOPE */
-
 .envelope{
-width:220px;
-height:140px;
+width:260px;
+height:170px;
 position:relative;
 cursor:pointer;
-transition:0.3s;
-perspective: 800px;
+perspective:800px;
+box-shadow:10px 10px 0px rgba(0,0,0,0.2);
 }
 
 .envelope:hover{
-transform:scale(1.05);
+transform:scale(1.08) rotate(-1deg);
 }
-
-/* CORPO */
 
 .corpo{
 width:100%;
 height:100%;
-background:#f4c542;
+background: linear-gradient(145deg,#f4c542,#ffd95a);
 border:3px solid black;
 border-radius:6px;
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
-font-weight:bold;
-position: relative;
-z-index: 2;
+position:relative;
+box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
 }
 
-/* TAMPA */
+.selo{
+position:absolute;
+bottom:10px;
+right:10px;
+font-size:22px;
+}
 
 .flap{
 position:absolute;
 top:0;
-left:0;
 width:100%;
-height:70px;
-background:#eab308;
+height:85px;
+background: linear-gradient(145deg,#eab308,#ffd95a);
 clip-path:polygon(0 0, 100% 0, 50% 100%);
 transform-origin:top;
-transition:0.6s ease;
-z-index: 3;
+transition:0.8s cubic-bezier(.22,1,.36,1);
 }
-
-/* TEXTO */
-
-.destino{
-text-align:left;
-color:#0d1b3d;
-}
-
-.abrirTexto{
-margin-top:15px;
-color:#0d1b3d;
-font-size:14px;
-}
-
-/* ANIMAÇÃO AO ABRIR */
 
 .envelope.aberto .flap{
 transform:rotateX(-180deg);
 }
-
-/* CARTA INTERNA */
 
 .carta{
 position:absolute;
 bottom:0;
 left:50%;
 transform:translateX(-50%) translateY(6px);
-width:180px;
-height:110px;
+width:210px;
+height:130px;
 background:white;
 border:2px solid black;
 border-radius:6px;
-z-index:0;
-transition:0.6s ease;
+transition:0.8s cubic-bezier(.22,1,.36,1);
 }
 
-/* QUANDO ABRE */
-
 .envelope.aberto .carta{
-transform:translateX(-50%) translateY(-40px);
+transform:translateX(-50%) translateY(-50px);
+}
+
+.destino{
+font-family:'Courier New', monospace;
+font-size:14px;
 }
 
 </style>
@@ -245,114 +201,94 @@ transform:translateX(-50%) translateY(-40px);
 <body>
 
 <div id="envelopeTela">
-
 <div class="envelope" onclick="abrirCarta()">
-
-    <div class="carta"></div>
-
+<div class="carta"></div>
 <div class="flap"></div>
-
 <div class="corpo">
-<p></p>
 <p class="destino">De: Anna<br>Para: Kika</p>
+<div class="selo">💖</div>
 </div>
-
 </div>
-
-<p class="abrirTexto">Toque para abrir</p>
-
+<p>Toque para abrir 💌</p>
 </div>
 
 <div class="container">
 
-<!-- Cartinha -->
+<!-- INTRO -->
 <div class="card">
 <p class="texto"></p>
-<div class="imgBox" id="gifIntro">
-<img src="https://media1.tenor.com/m/-I-V6VQ7NqwAAAAd/cat.gif">
-</div>
+<div class="imgBox"><img src="https://media1.tenor.com/m/-I-V6VQ7NqwAAAAd/cat.gif"></div>
 </div>
 
-<!-- Colagem 1 -->
+<!-- 1 -->
 <div class="card">
 <p class="texto"></p>
 <a href="https://open.spotify.com/intl-pt/track/3AX4HIRJY6GT6tgMkO5987" class="musica">🎧 Hate to see your heart break</a>
-<div class="imgBox" id="gif1">
-<img src="https://media1.tenor.com/m/wyntmn1kZY0AAAAd/cat-music.gif">
-</div>
+<div class="imgBox"><img src="https://media1.tenor.com/m/wyntmn1kZY0AAAAd/cat-music.gif"></div>
 </div>
 
-<!-- Colagem 2 -->
+<!-- 2 -->
 <div class="card">
 <p class="texto"></p>
 <a href="https://open.spotify.com/intl-pt/track/3sP3c86WFjOzHHnbhhZcLA" class="musica">🎧 Give your heart a break</a>
-<div class="imgBox" id="gif2">
-<img src="https://media1.tenor.com/m/GOabrbLMl4AAAAAd/plink-cat-plink.gif">
-</div>
+<div class="imgBox"><img src="https://media1.tenor.com/m/GOabrbLMl4AAAAAd/plink-cat-plink.gif"></div>
 </div>
 
-<!-- Colagem 3 -->
+<!-- 3 -->
 <div class="card">
 <p class="texto"></p>
 <a href="https://open.spotify.com/intl-pt/track/4ZsyrBZX0YMopDJjGpva5j" class="musica">🎧 Flor de Tangerina</a>
-<div class="imgBox" id="gif3">
-<img src="https://media1.tenor.com/m/146pwtq1QkoAAAAd/amor-cat.gif">
-</div>
+<div class="imgBox"><img src="https://media1.tenor.com/m/146pwtq1QkoAAAAd/amor-cat.gif"></div>
 </div>
 
-<!-- Colagem 4 -->
+<!-- 4 -->
 <div class="card">
 <p class="texto"></p>
 <a href="https://open.spotify.com/intl-pt/track/0dHTMMFAzlk164gZ7YB1rG" class="musica">🎧 Hoje à noite não tem luar</a>
-<div class="imgBox" id="gif4">
-<img src="https://media1.tenor.com/m/pAJwQ1fYUCEAAAAd/falling-stars-cute.gif">
-</div>
+<div class="imgBox"><img src="https://media1.tenor.com/m/pAJwQ1fYUCEAAAAd/falling-stars-cute.gif"></div>
 </div>
 
-<!-- Colagem 5 -->
+<!-- 5 -->
 <div class="card">
 <p class="texto"></p>
 <a href="https://open.spotify.com/intl-pt/track/2iUxWUv5TovjBmayOcWohB" class="musica">🎧 Equalize</a>
-<div class="imgBox" id="gif5">
-<img src="https://media1.tenor.com/m/yvA_d2Q-eBkAAAAd/dddd.gif">
-</div>
+<div class="imgBox"><img src="https://media1.tenor.com/m/yvA_d2Q-eBkAAAAd/dddd.gif"></div>
 </div>
 
-<!-- Colagem 6 -->
+<!-- 6 -->
 <div class="card">
 <p class="texto"></p>
 <a href="https://open.spotify.com/intl-pt/track/0NFVg74sSsdU1gNc9xfpIO" class="musica">🎧 Aonde quer que eu vá</a>
-<div class="imgBox" id="gif6">
-<img src="https://media1.tenor.com/m/cCP1gt279JEAAAAC/kitten-hug.gif">
-</div>
+<div class="imgBox"><img src="https://media1.tenor.com/m/cCP1gt279JEAAAAC/kitten-hug.gif"></div>
 </div>
 
-<!-- Colagem 7 -->
+<!-- 7 -->
 <div class="card">
 <p class="texto"></p>
 <a href="https://open.spotify.com/intl-pt/track/0228dbbfbyvjsjKus9KAS5" class="musica">🎧 Por você</a>
-<div class="imgBox" id="gif7">
-<img src="https://media1.tenor.com/m/px1vphSh3c4AAAAd/cat-kiss.gif">
-</div>
+<div class="imgBox"><img src="https://media.discordapp.net/attachments/1410421148839051264/1486129967359332502/image0.gif"></div>
 </div>
 
-<!-- Colagem 8 -->
+<!-- 8 -->
 <div class="card">
 <p class="texto"></p>
 <a href="https://open.spotify.com/intl-pt/track/2O4UvB3S7PFKIy0UPyVavJ" class="musica">🎧 Como eu quero</a>
-<div class="imgBox" id="gif8">
-<img src="https://media1.tenor.com/m/N3bmeZit47YAAAAd/cat-scottish-fold.gif">
-</div>
+<div class="imgBox"><img src="https://media.discordapp.net/attachments/1410421148839051264/1486129685396983951/730d75ed729397068c7a89fa7476e305.gif"></div>
 </div>
 
-<!-- Final -->
+<!-- 🆕 NOVA -->
+<div class="card">
+<p class="texto"></p>
+<a href="https://open.spotify.com/intl-pt/track/6ccKu0LwJzOhLAxBwP2PTk?si=3bedf7cc175a41ce" class="musica">🎧 Os Anjos Cantam</a>
+<div class="imgBox"><img src="https://media1.tenor.com/m/afz3dwa_LkwAAAAd/barbanne-canele.gif"></div>
+</div>
+
+<!-- FINAL -->
 <div class="card">
 <p class="texto"></p>
 <a href="https://open.spotify.com/intl-pt/track/3idU6lZVKD6hvGjnpSHde8" class="musica">🎧 Porque eu te amo</a>
 <a href="https://open.spotify.com/intl-pt/track/2o2xhyri4aJUtgMGkf5P0J" class="musica">🎧 Lisboa – Anavitória</a>
-<div class="imgBox" id="gifFinal">
-<img src="https://media1.tenor.com/m/3yinSke0rykAAAAC/love-you.gif">
-</div>
+<div class="imgBox"><img src="https://media1.tenor.com/m/3yinSke0rykAAAAC/love-you.gif"></div>
 </div>
 
 </div>
@@ -360,47 +296,52 @@ transform:translateX(-50%) translateY(-40px);
 <script>
 
 const colagens = [
-
-`Querida Kika,
+`Olá meu bem,
 Dessa vez eu quis fazer um aprontamento totalmente diferente, porém que mantivesse a nossa essência. 
 Então quis juntar algumas coisas que gostamos e aqui vamos nós para mais um aprontamento em linguagem de amor e programação e uma pitadinha de nostalgia
 Pronta?! Vamos lá.`,
 
 `A primeira música que lhe mandei em um momento onde tudo ainda era mato, mas ao mesmo tempo você já era extremamente especial pra mim e estava numa fase ruim, e obviamente já me vinha na cabeça esse belo hit de uma das nossas bandas preferidas. 
-Hate to see your heart break descreve perfeitamente meu sentimento toda vez que te via pra baixo, me dá uma coisa de querer fazer algo pra te tirar um sorriso do rosto imediatamente, apesar da música ser meio bad vibes, mas é nosso jeitinho kkkk.`,
+Hate to see your heart break descreve perfeitamente meu sentimento toda vez que te vejo pra baixo, me dá uma coisa de querer fazer algo pra te tirar um sorriso do rosto imediatamente, até porque um belíssimo sorriso como o seu tem que ser mostrado sempre, 
+meu lado sagitariano aprontão ativa na hora para fazer essa mulher EXTREMAMENTE BELA rir. E a música é meio bad vibes, mas é o nosso jeitinho de gostar de músicas alegres e também as deprês pra equilibrar hehe.`,
 
 `Quando compartilhamos nossos sentimentos pela primeira vez, lá no finalzinho do ano passado, você me disse que tinha se fechado para relacionamentos e só vinha na minha cabeça uma música de uma diva que gostamos. 
-Naquele momento o que eu mais queria era te mostrar que ainda era possível acreditar no amor, e que nem todas as pessoas eram como as outras que não souberam te dar um devido valor (otários u.u) e logo me vinha na cabeça Give your heart a break. Aquele verso: 
+Naquele momento o que eu mais queria era te mostrar que ainda era possível acreditar no amor, e que nem todas as pessoas eram como as outras que não souberam te dar valor (otários u.u) e logo me vinha na cabeça 
+Give your heart a break. Aquele verso: 
 'Cause you been hurt before
 I can see it in your eyes
 You try to smile it away
 Some things you can't disguise
 Don't wanna break your heart
 Baby, I can erase the ache, the ache
-So let me give your heart a break.
-`,
+So let me give your heart a break.`,
 
 `Um belo dia em uma live de God of War, você me surpreendeu virando membro em todas as suas contas, uma coisa bem fofa da sua parte, mas algo me chamou à atenção, pois em uma dessas contas estava o nome de sua música preferida do Alceu. 
 Acho que naquele momento ninguém reparou ou focou nessa curiosidade, mas eu marquei aquilo na minha cabeça, porque sabia o quão especial essa canção, uma bela canção (diga-se de passagem), era pra você, logo se tornou importante para mim também!`,
 
 `Essa música aqui se encaixa na mesma pegada da anterior, um belo dia em outra live aleatória chegou o papo dessa canção linda do Legião Urbana, banda que amamos e é da minha bela cidade. 
 Eu nunca esqueci o quanto essa música é especial pra você justamente por conta do seu pai. 
-Essa música é extremamente linda e ela me lembra você, talvez porque a música seja linda tal qual você, acho que é isso hein hehe.`,
+Essa música é extremamente linda sempre curti ela, e saber o que ela significa pra você faz ela se tornar mais especial ainda pra mim!`,
 
 `No primeiro dia que começamos nossas brincadeiras bobas e gostosas teve uma música que embalou esse rolê, e sempre que escuto logo vem você na minha cabeça que é Equalize da Pitty. 
-Uma música incrível, que hoje tem um significado mais do que especial porque além dela remeter a esse momento, não sei se você já reparou, mas ela nos descreve um pouco... “até parece que você já tinha, o meu manual de instruções”, esse verso acho que casa muito bem com a gente hein, não sei se você concorda kkkk.`,
+Uma música incrível, que hoje tem um significado mais do que especial porque além dela remeter a esse momento, não sei se você já reparou, mas ela nos descreve um pouco... 
+“até parece que você já tinha, o meu manual de instruções”, esse verso acho que casa muito bem com a gente hein, não sei se você concorda kkkk.`,
 
 `Essa love song aqui sempre foi a minha favorita do Paralamas e quando fiz a playlist pra você sabia que ela precisava estar lá por um simples motivo: você não sai da minha cabeça e posso estar em qualquer lugar que vou me lembrar de você, recentemente até o João ficou me zoando porque lembrei de você porque tinha uma aranha gigante no jogo kkkkk. 
-É um pouco bizarro isso, mas fazer o que, várias coisas do dia a dia me lembram você e aonde eu vou levo você. `,
+É um pouco bizarro isso, mas fazer o que, várias coisas do dia a dia me lembram você. Ih... sei não, acho que tu alugou um triplex na minha cabeça e no meu coração... tô começando a desconfiar haha`,
 
-`Já esse belo hit do Barão Vermelho vem pra te mostrar o quão incrível, linda, com a alma brilhante, um humor cativante, um sorriso encantador e belo par de olhos castanhos, como que a pessoa não se interessa e não faz tudo POR VOCÊ? 
-OLHA ESSA MULHER MEU DEUS, COISA MAI LINDA!!`,
+`Já esse belo hit do Barão Vermelho vem pra te mostrar o quão incrível, linda, com a alma brilhante, um humor cativante, um sorriso encantador e belo par de olhos castanhos você é! Como que alguém não se interessa e não faz tudo POR VOCÊ? 
+OLHA ESSA MULHER MEU DEUS, COISA MAI LINDA!! FICO BESTA COM ELA, NOSSINHORA 🥰`,
 
 `Mais uma música que usei na playlist que fiz para você, mas que deixa totalmente explicito meus sentimentos kkkk, aí como essa Anna apronta, nossinhora. 
 E não tem como, essa música é um hit atemporal e que demostra o que eu quero, o que será?! Talvez uma bela morena de Recife, ou talvez uma moça de belos olhos castanhos, ou talvez uma tal de Kika Simplicio que me mandou um gatinho LINDO e disse para eu sempre o manter perto e lembrar dela, acho que essa é a resposta correta!`,
 
+`Como boa garouta do Centro-Oeste, escuto de vez em quando um sertanejo e recentemente essa bela canção dos manos Jorge e Matheus me fizeram pensar em você enquanto escutava.
+Acho que sou uma pessoa muito romântica e apaixonada por uma moça de Recife, num é possível, olha essa letra!! É exatamente o que passa na minha cabeça, tirando umas partes meio possessivas aí dos seu Jorge and Matheus.`,
+
 `Para finalizar esse belo aprontamento nada melhor do que com duas músicas que dizem muito, quero que você repare na letra delas hein, porfas. 
 E lhe dizer que eu não imaginava que iria me apaixonar mais depois de tanta coisa ruim que rolou com relacionamentos passados, e não imaginava que isso aconteceria com uma pessoa com quem eu tenho uma grande afinidade e conexão. 
+Aliás que afinidade e conexão que temos, hein?! É uma coisa tão absurda de mágica, quando estou com você no telefone parece que o tempo voa, talvez seja porque eu fico completamente bobinha sorridente ouvindo um belo sotaque no meu ouvido, que não quero que aquele momento acabe rápido hehe. E sobre a conexão é absurda também como temos coisas em comum e as que são opostas praticamente se completam, é até engraçado kkkk.
 Então, Kika Simplicio, eu agradeço todos os dias por Deus ter te colocado na minha vida, você ilumina meus dias, me deixa feliz mesmo com a distância, que inclusive, isso não é nada perto do que sinto por você. 
 Obrigada por tornar minha vida melhor, por me apoiar em tudo, principalmente nos aprontamentos hehe, você não tem noção do quanto você me faz bem e feliz todos os dias e por isso eu sempre quero aprontar algo pra fazer você sorrir (um sorriso LINDO desses tem que ser mostrado com frequência, né não?!) e se sentir amada por uma loirinha brasiliense, aliás, eu amo quando recebo apelidinhos, pode ser os regionais kkk, até porque começamos com eles, ex loirinha brasiliense, loirinha brasiliense, meu bem, baby, dentre muitos outros que virão, porque a gente apronta kkkkk. 
 Obrigada por tudo mi amore, eu amo você ♥️`
@@ -417,81 +358,48 @@ if(index >= colagens.length) return;
 const cards = document.querySelectorAll(".card");
 const textos = document.querySelectorAll(".texto");
 const gifs = document.querySelectorAll(".imgBox");
-const musica = document.querySelectorAll(".musica");
-
-//alternar da esquerda para a direita
-const rotacao = (Math.random() * 2 - 1) + "deg";
 
 if(index % 2 === 0){
 cards[index].classList.add("left");
-cards[index].style.transform += ` rotate(${rotacao})`;
 }else{
 cards[index].classList.add("right");
-cards[index].style.transform += ` rotate(${rotacao})`;
 }
 
-//ativando animação
-setTimeout(()=>{
-    cards[index].classList.add("show");
-},100);
+setTimeout(()=> cards[index].classList.add("show"),100);
 
 let i = 0;
 
 function digitar(){
-
 if(i < colagens[index].length){
 textos[index].textContent += colagens[index].charAt(i);
 i++;
 setTimeout(digitar, velocidade);
 }
 else{
-
-
-// MOSTRA GIF
 gifs[index].classList.add("show");
 
-// ESPERA → MOSTRA MÚSICA → SÓ DEPOIS AVANÇA
 setTimeout(()=>{
+const musicas = cards[index].querySelectorAll(".musica");
+musicas.forEach(m => m.classList.add("show"));
 
-const cardAtual = cards[index];
-
-const musicasDoCard = cardAtual.querySelectorAll(".musica");
-
-musicasDoCard.forEach(m => {
-m.classList.add("show");
-});
-
-// AGORA SIM AVANÇA
 index++;
 rodarAnimacao();
-
 },1500);
-
-return; // MUITO IMPORTANTE
-
 }
 }
+
 digitar();
-
 }
+
 rodarAnimacao();
 
 function abrirCarta(){
-
 const env = document.querySelector(".envelope");
-
 env.classList.add("aberto");
 
-// espera a carta subir
-setTimeout(()=>{
-
-// espera mais um pouquinho pra abrir tudo
 setTimeout(()=>{
 document.getElementById("envelopeTela").style.display="none";
-},600);
-
-},600);
-
+},1200);
 }
 
 </script>
