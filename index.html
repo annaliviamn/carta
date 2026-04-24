@@ -22,14 +22,6 @@ text-align:center;
 overflow-x: hidden;
 }
 
-body::after{
-content:"🐾";
-position:fixed;
-bottom:10px;
-right:15px;
-opacity:0.3;
-}
-
 /* brilho */
 #envelopeTela::before{
 content:"";
@@ -90,8 +82,14 @@ opacity:1;
 
 .imgBox img{
 width:100%;
+max-width:280px;
+height:200px;
+object-fit:cover;
 border-radius:8px;
 border:2px solid black;
+margin:auto;
+display:block;
+box-shadow:3px 3px 0px black;
 }
 
 .musica{
@@ -238,7 +236,7 @@ animation: pulsar 1.5s infinite;
 <!-- INTRO -->
 <div class="card">
 <p class="texto"></p>
-<div class="imgBox"><img src="https://media1.tenor.com/m/-I-V6VQ7NqwAAAAd/cat.gif"></div>
+<div class="imgBox"><img src="https://media1.tenor.com/m/lfDATg4Bhc0AAAAC/happy-cat.gif"></div>
 </div>
 
 <!-- 1 -->
@@ -297,7 +295,7 @@ animation: pulsar 1.5s infinite;
 <div class="imgBox"><img src="https://media1.tenor.com/m/ZaUXYoC8ZHMAAAAC/cute-flower.gif"></div>
 </div>
 
-<!-- 🆕 NOVA -->
+<!-- 9 -->
 <div class="card">
 <p class="texto"></p>
 <a href="https://open.spotify.com/intl-pt/track/6ccKu0LwJzOhLAxBwP2PTk?si=3bedf7cc175a41ce" class="musica">🎧 Os Anjos Cantam</a>
