@@ -202,6 +202,18 @@ font-size:14px;
 transform: translateY(8px);
 }
 
+.abrirTexto{
+margin-top:25px;
+opacity:0.8;
+animation: pulsar 1.5s infinite;
+}
+
+@keyframes pulsar{
+0%{opacity:0.5;}
+50%{opacity:1;}
+100%{opacity:0.5;}
+}
+
 </style>
 </head>
 
@@ -216,7 +228,7 @@ transform: translateY(8px);
 <div class="selo">💖</div>
 </div>
 </div>
-<p>Toque para abrir</p>
+<p class="abrirTexto">Toque para abrir</p>
 </div>
 
 <div class="container">
