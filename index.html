@@ -123,6 +123,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 z-index:999;
+padding-top:60px;
 }
 
 .envelope{
@@ -132,6 +133,7 @@ position:relative;
 cursor:pointer;
 perspective:800px;
 box-shadow:10px 10px 0px rgba(0,0,0,0.2);
+margin-bottom:20px;
 }
 
 .envelope:hover{
@@ -188,12 +190,12 @@ height:170px;
 background:white;
 border:2px solid black;
 border-radius:6px;
-transition:0.8s cubic-bezier(.22,1,.36,1);
+transition: all 0.8s cubic-bezier(.22,1,.36,1);
 z-index: 1;
 }
 
 .envelope.aberto .carta{
-transform:translateX(-50%) translateY(-80px);
+transform:translateX(-50%) translateY(-65px);
 }
 
 .destino{
