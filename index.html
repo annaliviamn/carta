@@ -75,6 +75,31 @@ opacity:0;
 transition:1s;
 }
 
+.imgBox{
+position:relative;
+}
+
+.imgBox::before,
+.imgBox::after{
+content:"";
+position:absolute;
+width:40px;
+height:12px;
+background:#fef08a;
+top:-6px;
+opacity:0.8;
+}
+
+.imgBox::before{
+left:20px;
+transform:rotate(-10deg);
+}
+
+.imgBox::after{
+right:20px;
+transform:rotate(10deg);
+}
+  
 .imgBox.show{
 display:block;
 opacity:1;
@@ -82,14 +107,15 @@ opacity:1;
 
 .imgBox img{
 width:100%;
-max-width:280px;
-height:200px;
+max-width:320px;
+height:220px;
 object-fit:cover;
 border-radius:8px;
 border:2px solid black;
 margin:auto;
 display:block;
-box-shadow:3px 3px 0px black;
+transform:rotate(-1.5deg);
+box-shadow:4px 4px 0px black;
 }
 
 .musica{
