@@ -75,6 +75,7 @@ opacity:0;
 transition:1s;
 }
 
+/* FITAS */
 .imgBox{
 position:relative;
 }
@@ -88,6 +89,17 @@ height:12px;
 background:#fef08a;
 top:-6px;
 opacity:0.8;
+}
+
+/* VARIAÇÃO */
+.card:nth-child(3n) .imgBox::before{
+left:10px;
+transform:rotate(-15deg);
+}
+
+.card:nth-child(3n) .imgBox::after{
+right:30px;
+transform:rotate(15deg);
 }
 
 .imgBox::before{
