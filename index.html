@@ -91,15 +91,37 @@ top:-6px;
 opacity:0.8;
 }
 
-/* VARIAÇÃO */
+/* PADRÃO BASE (TODOS) */
+.imgBox::before{
+left:20px;
+transform:rotate(-10deg);
+}
+
+.imgBox::after{
+right:20px;
+transform:rotate(10deg);
+}
+
+/* VARIAÇÃO 1 */
 .card:nth-child(3n) .imgBox::before{
-left:10px;
-transform:rotate(-15deg);
+left:5px;
+transform:rotate(-18deg);
 }
 
 .card:nth-child(3n) .imgBox::after{
-right:30px;
-transform:rotate(15deg);
+right:35px;
+transform:rotate(18deg);
+}
+
+/* VARIAÇÃO 2 */
+.card:nth-child(2n) .imgBox::before{
+left:40px;
+transform:rotate(5deg);
+}
+
+.card:nth-child(2n) .imgBox::after{
+right:10px;
+transform:rotate(-5deg);
 }
 
 .imgBox::before{
